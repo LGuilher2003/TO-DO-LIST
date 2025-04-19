@@ -14,13 +14,13 @@ with app.app_context():
 @app.route('/tasks/',methods = ['GET'])
 def get_tarefas():
         tarefas = Task.query.all()
-        return jsonify([{'id': t.id, 'tarefa': t.tarefa, 'completado': t.completado} for t in tarefas]) #Cria um dicionário com cada variavel temporaria t e 
-#Gera uma nova lista com os dicionários criados
+        return jsonify([{'id': t.id, 'tarefa': t.tarefa, 'completado': t.completado} for t in tarefas]) 
+
 
 @app.route('/tasks/', methods = ['POST'])
 def add_tarefas():
-     data = request.json #recebe o json enviado do front
-     nova_tarefa = Task(tarefa=data['tarefa']) #converte o json em python
+     data = request.json 
+     nova_tarefa = Task(tarefa=data['tarefa']) 
      db.session.add(nova_tarefa)
      db.session.commit()
      return jsonify({'message': 'Tarefa adicionada com sucesso'})
@@ -37,7 +37,7 @@ def update_tarefas(id):
 @app.route('/tasks/<int:id>', methods=['DELETE'])
 def delete_tarefa(id):
     tarefa = Task.query.all()
-    if not tarefa: # se não tiver da erro e o message é pra mandar pro front
+    if not tarefa: 
         return jsonify({'message' : 'Tarefa não encontrada'}), 404
     db.session.delete(tarefa)
     db.session.commit()
